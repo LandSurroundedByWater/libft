@@ -6,11 +6,17 @@
 /*   By: tsaari <tsaari@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 09:11:17 by tsaari            #+#    #+#             */
-/*   Updated: 2023/11/28 10:38:42 by tsaari           ###   ########.fr       */
+/*   Updated: 2024/03/20 16:40:14 by tsaari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_free_itoa(char *str)
+{
+	free(str);
+	return (NULL);
+}
 
 static int	nbrofdigits(int n)
 {
@@ -30,11 +36,8 @@ static char	*allocate(int len)
 	char	*ret;
 
 	ret = (char *)ft_calloc(len, sizeof(char));
-	if (!ret)
-	{
-		free (ret);
-		return (0);
-	}
+	if (ret == 0)
+		return (ft_free_itoa(ret));
 	return (ret);
 }
 
@@ -48,21 +51,14 @@ static char	*makearray(int n, int neg)
 	{
 		ret = allocate(len + 2);
 		if (!ret)
-		{
-			free(ret);
-			return (0);
-		}
+			return (NULL);
 		ret[0] = '-';
 		len++;
 	}
 	else
 		ret = allocate(len + 1);
 	if (!ret)
-	{
-		free(ret);
-		return (0);
-	}
-		
+		return (ft_free_itoa(ret));
 	ret[len] = '\0';
 	len--;
 	while (n > 0)
@@ -80,26 +76,18 @@ char	*ft_itoa(int n)
 	int		neg;
 
 	neg = 1;
-	if (n == -2147483648)
+	if (n == -2147483648 || n == 0)
 	{
-		ret = allocate(12);
+		if (n == -2147483648)
+			ret = allocate(12);
+		else
+			ret = allocate(2);
 		if (!ret)
-		{
-			free(ret);
-			return (0);
-		}
-		ft_strlcpy (ret, "-2147483648", 12);
-		return (ret);
-	}
-	if (n == 0)
-	{
-		ret = allocate(2);
-		if (!ret)
-		{
-			free(ret);
-			return (NULL);
-		}
-		ft_strlcpy (ret, "0", 2);
+			return (ft_free_itoa(ret));
+		if (n == -2147483648)
+			ft_strlcpy (ret, "-2147483648", 12);
+		else if (n == 0)
+			ft_strlcpy (ret, "0", 2);
 		return (ret);
 	}
 	if (n < 0)
@@ -107,9 +95,6 @@ char	*ft_itoa(int n)
 	n *= neg;
 	ret = makearray(n, neg);
 	if (!ret)
-	{
-		free(ret);
-		return (0);
-	}
+		return (ft_free_itoa(ret));
 	return (ret);
 }

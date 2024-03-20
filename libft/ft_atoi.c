@@ -6,7 +6,7 @@
 /*   By: tsaari <tsaari@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:10:47 by tsaari            #+#    #+#             */
-/*   Updated: 2023/11/21 12:01:02 by tsaari           ###   ########.fr       */
+/*   Updated: 2024/02/12 14:05:01 by tsaari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int	converttoint(const char *str, int i, int neg)
 int	ft_atoi(const char *str)
 {
 	int		i;
-	long	ret;
 	int		neg;
 
 	neg = 1;
 	i = 0;
-	ret = 0;
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '-' || str[i] == '+')

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsaari <tsaari@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 17:25:11 by tsaari            #+#    #+#             */
-/*   Updated: 2024/03/20 16:24:54 by tsaari           ###   ########.fr       */
+/*   Created: 2023/12/12 13:30:25 by tsaari            #+#    #+#             */
+/*   Updated: 2024/03/18 12:07:39 by tsaari           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ret;
+# include <unistd.h>
+# include <stdlib.h>
+# include <limits.h>
+# include "libft.h"
 
-	if (count && size && count > (UINT_MAX / size))
-		return (0);
-	ret = (malloc(count * size));
-	if (!ret)
-		return (0);
-	ft_bzero (ret, count * size);
-	return (ret);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
+
+char	*get_next_line(int fd);
+char	*ft_free(char **ptr, char **ptr2);
+
+#endif
